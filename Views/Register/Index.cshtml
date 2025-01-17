@@ -1,0 +1,41 @@
+﻿@using filmsitesi.Dtos
+@model AppUserRegisterDto
+
+<head>
+    <link rel="stylesheet" href="~/css/loginpage.css" />
+</head>
+
+<div class="login_page_div">
+    <form method="post">
+        <h1>Kayıt Ol</h1>
+
+        @if (ViewData.ModelState != null && ViewData.ModelState.ErrorCount > 0)
+        {
+            <div class="error-messages">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p class="error">@error.ErrorMessage</p>
+                }
+            </div>
+        }
+
+        
+        <input type="text" asp-for="Name" placeholder="Kullanıcı Adınız" required />
+
+        
+        <input type="email" asp-for="Email" placeholder="E-posta adresiniz" required />
+
+        
+        <input type="password" asp-for="Password" placeholder="Şifreniz" required />
+
+        <br /><br />
+
+        <div class="aitssendbuttonw3ls">
+            <input type="submit" value="Kayıt Ol">
+
+            <p> Hesabınız mı var?  <a class="w3_play_icon1" href="/login">Giriş Yap</a></p>
+
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>

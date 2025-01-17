@@ -1,0 +1,80 @@
+﻿@model List<filmsitesi.Controllers.FilmViewModel>
+@using filmsitesi.Controllers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link rel="stylesheet" href="~/css/mystyle.css" />
+</head>
+<body>
+    <div class="header">
+        <h1>Film Listesi</h1>
+
+     
+        @if (ViewData["UserName"] != null)
+        {
+            <div class="user-info">
+                <span>Hoşgeldiniz, @ViewData["UserName"]</span>
+                <form action="@Url.Action("Index", "Logout")" method="post">
+                    <button type="submit" class="btn logout-button">Çıkış Yap</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="user-info">
+                <a href="/login" class="btn login-button">Giriş Yap</a>
+            </div>
+        }
+    </div>
+ 
+
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Film arayın..." />
+        <button id="searchButton">Ara</button>
+    </div>
+
+ 
+    <div class="film-div">
+        <div class="film-container" id="filmContainer">
+        @foreach (var film in Model)
+            {
+                <a class="film-container-item" href="@Url.Action("Details", "Film", new { id = film.Id })">
+                    <div class="film-card">
+                <img src="@film.PosterUrl" alt="@film.Title Poster" 
+                            onerror="this.src='/images/default_poster.jpg';" />
+                        <h2>@film.Title</h2>
+                    
+                    </div>
+                </a>
+            }
+        </div>
+    
+    </div>
+
+
+    
+
+
+    <!-- Arama Fonksiyonu -->
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function () {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const allMovies = Array.from(document.getElementsByClassName("film-card"));
+
+            allMovies.forEach(movie => {
+                const title = movie.querySelector("h2").innerText.toLowerCase();
+                if (title.includes(query)) {
+                    movie.style.display = "block"; // Arama eşleşiyorsa göster
+                } else {
+                    movie.style.display = "none"; // Eşleşmiyorsa gizle
+                }
+            });
+        });
+    </script>
+</body>
+</html>

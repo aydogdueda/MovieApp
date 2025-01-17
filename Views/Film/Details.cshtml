@@ -1,0 +1,21 @@
+@model filmsitesi.Controllers.FilmViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.Title - Film Detayı</title>
+    <link rel="stylesheet" href="~/css/mystyle.css" />
+</head>
+<body>
+    <h1>@Model.Title</h1>
+
+    <div class="film-details">
+        <img src="@Model.PosterUrl" alt="@Model.Title Poster" onerror="this.src='/images/default_poster.jpg';" />
+        <p>@Model.Overview</p>
+    </div>
+
+    <a href="@Url.Action("Index", "Film")">Geriye Dön</a> 
+</body>
+</html>
